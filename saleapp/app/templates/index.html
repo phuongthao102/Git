@@ -11,20 +11,20 @@
 {% if products %}
 <div class="row">
     {% for p in products %}
-    <div class="col-md-3 col-12 p-2">
+    <div class="col-md-4 col-14 p-2">
         <div class="card">
             <img class="card-img-top" src="{{ p.image }}" alt="{{ p.name }}">
             <div class="card-body">
                 <h4 class="card-title">{{ p.name }}</h4>
                 <p class="card-text">{{ p.price }} VNĐ</p>
                 <a href="/products/{{ p.id }}" class="btn btn-primary">Xem chi tiết</a>
-                <button class="btn btn-danger" onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }})">Đặt hàng</button>
+                <button class="btn btn-danger" onclick="addToCart({{ p.id }}, '{{ p.name }}', {{ p.price }})">Đặt vé</button>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
 {% else %}
-<div class="alert alert-info mt-1">KHÔNG có sản phẩm nào!</div>
+<div class="alert alert-info mt-1">KHÔNG còn vé nào!</div>
 {% endif %}
 {% endblock %}

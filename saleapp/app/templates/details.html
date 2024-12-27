@@ -1,25 +1,27 @@
 {% extends 'layout/base.html' %}
 
 {% block content %}
-<h1 class="text-center text-success mt-2">CHI TIET SAN PHAM</h1>
+<h1 class="text-center mt-2" style="color:Magenta;">THÔNG TIN CHI TIẾT VỀ VÉ</h1>
 <div class="row">
-    <div class="col-md-5 col-6">
+    <div class="col-md-8 col-6">
         <img src="{{ product.image }}" class="img-fluid rounded" />
     </div>
-    <div class="col-md-7 col-6">
-        <h1>{{ product.name }}</h1>
-        <h3 class="text-danger">{{ product.price }} VND</h3>
-        <button class="btn btn-danger" onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})">Dat hang</button>
+    <div class="col-md-8 col-6">
+        <h1 style="color: white;">{{ product.name }}</h1>
+         <h2 style="color: yellow;">{{ product.description }}</h2>
+       <h3 class="color:white">{{ product.price }} VND</h3>
+        <button class="btn btn-danger" onclick="addToCart({{ product.id }}, '{{ product.name }}', {{ product.price }})">Đặt vé</button>
     </div>
 </div>
 
+
 {% if current_user.is_authenticated %}
 <div class="mt-2">
-    <textarea class="form-control" rows="5" id="comment" placeholder="Noi dung binh luan..."></textarea>
-    <button class="btn btn-success mt-1" onclick="addComment({{ product.id }})">Binh luan</button>
+    <textarea class="form-control" rows="5" id="comment" placeholder="Nội dung phản hồi về chuyến bay..."></textarea>
+    <button class="btn btn-success mt-1" onclick="addComment({{ product.id }})">Phản hồi về chuyến bay của người dùng!</button>
 </div>
 {% else %}
-<p>Vui long <a href="/login?next=/products/{{ product.id }}">dang nhap</a> de binh luan!</p>
+<p>Vui lòng <a href="/login?next=/products/{{ product.id }}">đăng nhập </a> để phản hồi!</p>
 {% endif %}
 
 

@@ -1,5 +1,4 @@
 import math
-
 from flask import render_template, request, redirect, session, jsonify
 import dao, utils
 from app import app, login
@@ -14,7 +13,7 @@ def index():
     page = request.args.get('page', 1)
     prods = dao.load_products(cate_id=cate_id, kw=kw, page=int(page))
 
-    page_size = app.config.get('PAGE_SIZE', 8)
+    page_size = app.config['PAGE_SIZE']
     total = dao.count_products()
 
     return render_template('index.html', products=prods,
@@ -115,21 +114,25 @@ def register_process():
 
 @app.route('/api/carts', methods=['post'])
 def add_to_cart():
+#them
     """
     {
-        "1": {
-            "id": "1",
-            "name": "abc",
-            "price": 123,
-            "quantity": 2
-        }, "2": {
-            "id": "2",
-            "name": "abc",
-            "price": 123,
-            "quantity": 2
-        }
+      "1": {
+      "id": "1",
+      "name": "abc",
+      "price": 123,
+      "quantity": 2
+      },   "2": {
+      "id": "2",
+      "name": "abc",
+      "price": 123,
+      "quantity": 3
+      }
     }
     """
+
+
+
     cart = session.get('cart')
     if not cart:
         cart = {}
@@ -182,7 +185,7 @@ def cart():
 
 
 @app.context_processor
-def common_response():
+def common_context_params():
     return {
         'categories': dao.load_categories(),
         'cart_stats': utils.stats_cart(session.get('cart'))

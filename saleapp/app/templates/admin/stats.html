@@ -1,21 +1,21 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
-<h1 class="text-center text-danger mt-1">THỐNG KÊ - BÁO CÁO</h1>
+<h1 class="text-center text-danger mt-1">THÔNG KÊ - BÁO CÁO</h1>
 
 <div class="row">
-    <div class="col-md-7 col-12">
+    <div class="col-md-6 col-12">
         <table class="table">
             <tr>
-                <th>Id</th>
-                <th>Ten san pham</th>
+                <th>ID</th>
+                <th>Tuyến bay</th>
                 <th>Doanh thu</th>
             </tr>
             {% for s in stats %}
             <tr>
                 <td>{{ s[0] }}</td>
                 <td>{{ s[1] }}</td>
-                <td>{{ s[2] }} VND</td>
+                <td>{{ s[2] }} VNĐ</td>
             </tr>
             {% endfor %}
         </table>
@@ -29,13 +29,12 @@
     <div class="col-md-7 col-12">
         <table class="table">
             <tr>
-                <th>Thoi gian</th>
-                <th>Doanh thu</th>
-            </tr>
+                <th>Tháng</th>
+                <th>Doanh thu </th>
             {% for s in stats2 %}
             <tr>
                 <td>{{ s[0] }}</td>
-                <td>{{ s[1] }} VND</td>
+                <td>{{ s[1] }} VNĐ</td>
             </tr>
             {% endfor %}
         </table>
@@ -47,8 +46,24 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    let data = [];
+    let labels = [];
+
+    let data2 = [];
+    let labels2 = [];
+
+    {% for s in stats %}
+    data.push({{ s[2] }});
+    labels.push('{{ s[1] }}')
+    {% endfor %}
+
+    {% for s in stats2 %}
+    data2.push({{ s[0] }});
+    labels2.push('{{ s[1] }}')
+    {% endfor %}
+
     function draw(ctx, data, labels) {
-        new Chart(ctx, {
+    new Chart(ctx, {
             type: 'bar',
             data: {
               labels: labels,
@@ -56,7 +71,7 @@
                 label: '# Doanh thu',
                 data: data,
                 borderWidth: 1,
-                backgroundColor: ['red', 'green', 'blue', 'gold', 'brown']
+                backgroundColor: ['red', 'green', 'blue', 'gold', 'brown','pink','cyan','magenta','yellow','gray','purple','white']
               }]
             },
             options: {
@@ -69,28 +84,12 @@
           });
     }
 
-    let data = [];
-    let labels = [];
-
-    let data2 = [];
-    let labels2 = [];
-
-    {% for s in stats %}
-    data.push({{ s[2] }})
-    labels.push('{{ s[1] }}')
-    {% endfor %}
-
-    {% for s in stats2 %}
-    data2.push({{ s[1] }})
-    labels2.push({{ s[0] }})
-    {% endfor %}
-
     window.onload = function() {
-        const ctx = document.getElementById('myChart');
+         const ctx = document.getElementById('myChart');
+         const ctx2 = document.getElementById('myChart2');
         draw(ctx, data, labels);
-
-        const ctx2 = document.getElementById('myChart2');
         draw(ctx2, data2, labels2);
+
     }
 </script>
 {% endblock %}

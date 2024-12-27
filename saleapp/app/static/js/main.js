@@ -21,7 +21,7 @@ function addToCart(id, name, price) {
         }
     }).then(res => res.json()).then(data => {
         updateUI(data);
-    }) // promise
+    });
 }
 
 function updateCart(productId, obj) {
@@ -39,7 +39,7 @@ function updateCart(productId, obj) {
 }
 
 function deleteCart(productId) {
-    if (confirm("Ban chac chan xoa khong?") === true) {
+    if (confirm("Bạn có chắc chắn hủy đặt vé này không?") === true) {
         fetch(`/api/carts/${productId}`, {
             method: 'delete'
         }).then(res => res.json()).then(data => {
@@ -50,12 +50,12 @@ function deleteCart(productId) {
 }
 
 function pay() {
-    if (confirm("Ban chac chan thanh toan khong?") === true) {
+    if (confirm("Bạn có chắc chắn thanh toán không?") === true) {
         fetch(`/api/pay`, {
             method: 'post'
         }).then(res => res.json()).then(data => {
             if (data.status === 200) {
-                alert("Thanh toan thanh cong!");
+                alert("Chúc mừng bạn thanh toán thành công!");
                 location.reload();
             }
         });
